@@ -1,0 +1,37 @@
+[Unit]
+Description=Minecraft Server %i
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/minecraft/%i
+User=minecraft
+Group=minecraft
+
+ExecStart=/bin/sh -c '/usr/bin/screen -DmS mc-%i /usr/bin/java -server -Xms512M -Xmx2048M -XX:+UseG1GC -XX:+CMSIncrementalPacing -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -jar $(ls -v | grep -i "FTBServer.*jar\|minecraft_server.*jar" | head -n 1) nogui'
+
+
+ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "say SERVER SHUTTING DOWN. Saving map..."\\015'
+ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "save-all"\\015'
+ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "stop"\\015'
+ExecStop=/bin/sleep 10
+
+Restart=on-failure
+RestartSec=60s
+
+[Install]
+WantedBy=multi-user.target
+
+#########
+# HowTo
+#########
+#
+# Create a directory in /opt/minecraft/XX where XX is a name like 'survival'
+# Add minecraft_server.jar into dir with other conf files for minecraft server
+#
+# Enable/Start systemd service
+#    systemctl enable minecraft@survival
+#    systemctl start minecraft@survival
+#
+# To run multiple servers simply create a new dir structure and enable/start it
+#    systemctl enable minecraft@creative
+# systemctl start minecraft@creative
