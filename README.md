@@ -32,14 +32,10 @@ su -c "/opt/minecraft/FTBBeyond/FTBInstall.sh" -s "/bin/bash" minecraft
 ### Stop Manually
 <pre>systemctl stop minecraft@FTBBeyond</pre>
 ### Enter Server Commands
-Entering commands into the console is somehow complicated thorugh the nature of systemd.<br />
-So to enter the console "screen" is used (that's why it is in the script).<br />
+To enter the console "screen" is used (that's why it is in the script).<br />
 <b>Note</b>: To detach (exit) screen press [STRG] + [A] followed by [D].<br />
 <pre>
-chmod 666 $(tty)
-su -c "/usr/bin/screen -r" minecraft
-chmod 430 $(tty)
+su - minecraft -c "/usr/bin/screen -r" minecraft
 </pre>
-The first command allows otter users to read and write to your terminal.<br />
-The second switches the user context to the minecraft service account.<br />
-The last one restores the original terminal access rights for security. It is not very recommended to set the tty access to 666, but it seam to be the only way to enter a screen session within a su session.<br />
+The command switches to the minecraft screen session using the minecraft user account.<br />
+
