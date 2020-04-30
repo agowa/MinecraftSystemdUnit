@@ -4,16 +4,29 @@ After=network.target
 
 [Service]
 WorkingDirectory=/opt/minecraft/%i
-PrivateUsers=true # Users Database is not available for within the unit, only root and minecraft is available, everybody else is nobody
+
+PrivateUsers=true
+# Users Database is not available for within the unit, only root and minecraft is available, everybody else is nobody
+
 User=minecraft
 Group=minecraft
-ProtectSystem=full # Read only mapping of /usr /boot and /etc
-ProtectHome=true # /home, /root and /run/user seem to be empty from within the unit. It is recommended to enable this setting for all long-running services (in particular network-facing ones).
-ProtectKernelTunables=true # /proc/sys, /sys, /proc/sysrq-trigger, /proc/latency_stats, /proc/acpi, /proc/timer_stats, /proc/fs and /proc/irq will be read-only within the unit. It is recommended to turn this on for most services.
+
+ProtectSystem=full
+# Read only mapping of /usr /boot and /etc
+
+ProtectHome=true
+# /home, /root and /run/user seem to be empty from within the unit. It is recommended to enable this setting for all long-running services (in particular network-facing ones).
+
+ProtectKernelTunables=true
+# /proc/sys, /sys, /proc/sysrq-trigger, /proc/latency_stats, /proc/acpi, /proc/timer_stats, /proc/fs and /proc/irq will be read-only within the unit. It is recommended to turn this on for most services.
 # Implies MountFlags=slave
-ProtectKernelModules=true # Block module system calls, also /usr/lib/modules. It is recommended to turn this on for most services that do not need special file systems or extra kernel modules to work
+
+ProtectKernelModules=true
+# Block module system calls, also /usr/lib/modules. It is recommended to turn this on for most services that do not need special file systems or extra kernel modules to work
 # Implies NoNewPrivileges=yes
-ProtectControlGroups=true # It is hence recommended to turn this on for most services.
+
+ProtectControlGroups=true
+# It is hence recommended to turn this on for most services.
 # Implies MountAPIVFS=yes
 
 ExecStart=/bin/sh -c '/usr/bin/screen -DmS mc-%i /usr/bin/java -server -Xms512M -Xmx2048M -XX:+UseG1GC -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -jar $(ls -v | grep -i "FTBServer.*jar\|craftbukkit.*jar\|spigot.*jar\|paper*.*jar\|forge*.*jar|minecraft_server.*jar" | head -n 1) nogui'
