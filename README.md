@@ -22,6 +22,12 @@ echo "eula=true" > /opt/minecraft/FTBBeyond/eula.txt
 su -c "/opt/minecraft/FTBBeyond/FTBInstall.sh" -s "/bin/bash" minecraft
 ```
 
+If you are hosting multiple instances and want to use different RAM setting with each, create file `/opt/minecraft/XX/server.conf` with below contents to override default RAM settings.
+```
+MCMINMEM=512M
+MCMAXMEM=2048M
+```
+
 ## Usage
 ### Enable Autostart
 ```
