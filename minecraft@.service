@@ -29,6 +29,11 @@ ProtectControlGroups=true
 # It is hence recommended to turn this on for most services.
 # Implies MountAPIVFS=yes
 
+# Set default memory values
+Environment="MCMINMEM=512M" "MCMAXMEM=1024M"
+# Change memory values in environment file
+EnvironmentFile=-/opt/minecraft/%i/server.conf
+
 ExecStart=/bin/sh -c '/usr/bin/screen -DmS mc-%i /usr/bin/java -server -Xms${MCMINMEM} -Xmx${MCMAXMEM} -XX:+UseG1GC -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -jar $(ls -v | grep -i "FTBServer.*jar\\|craftbukkit.*jar\\|spigot.*jar\\|paper*.*jar\\|forge*.*jar\\|minecraft_server.*jar" | head -n 1) nogui'
 
 ExecReload=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "reload"\\015'
@@ -58,3 +63,8 @@ WantedBy=multi-user.target
 # To run multiple servers simply create a new dir structure and enable/start it
 #    systemctl enable minecraft@creative
 # systemctl start minecraft@creative
+#
+# To change specific server memory assignment, create file /opt/minecraft/XX/server.conf (where XX is your server name) and add below lines:
+# MCMINMEM=512M
+# MCMAXMEM=2048M
+
