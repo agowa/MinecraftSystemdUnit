@@ -34,7 +34,7 @@ Environment="MCMINMEM=512M" "MCMAXMEM=1024M"
 # Change memory values in environment file
 EnvironmentFile=-/opt/minecraft/%i/server.conf
 
-ExecStart=/bin/sh -c '/usr/bin/screen -DmS mc-%i /usr/bin/java -server -Xms${MCMINMEM} -Xmx${MCMAXMEM} -XX:+UseG1GC -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -jar $(ls -v | grep -i "FTBServer.*jar\\|craftbukkit.*jar\\|spigot.*jar\\|paper*.*jar\\|forge*.*jar\\|minecraft_server.*jar" | head -n 1) nogui'
+ExecStart=/bin/sh -c '/usr/bin/screen -DmS mc-%i /usr/bin/java -server -Xms${MCMINMEM} -Xmx${MCMAXMEM} -XX:+UseG1GC -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -jar $(ls -v | grep -iE "FTBServer.*jar\|craftbukkit.*jar\|spigot.*jar\|paper.*jar\|forge.*jar\|minecraft_server.*jar" | head -n 1) nogui'
 
 ExecReload=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "reload"\\015'
 
