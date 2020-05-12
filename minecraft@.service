@@ -45,10 +45,12 @@ ExecStart=/bin/sh -c \
         -XX:ParallelGCThreads=2 \
         -XX:MinHeapFreeRatio=5 \
         -XX:MaxHeapFreeRatio=10 \
-        -jar $(ls -v | \
-          grep -i \
-            "FTBServer.*jar\\|craftbukkit.*jar\\|spigot.*jar\\|paper*.*jar\\|forge*.*jar\\|minecraft_server.*jar" \
-          | head -n 1) \
+        -jar $(find -L . \
+            -maxdepth 1 \
+            -type f \
+            -iregex ".*/\\(FTBServer.*jar\\|craftbukkit.*jar\\|spigot.*jar\\|paper*.*jar\\|forge*.*jar\\|minecraft_server.*jar\\)" \
+            -print \
+            -quit) \
         nogui'
 
 ExecReload=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "reload"\\015'
