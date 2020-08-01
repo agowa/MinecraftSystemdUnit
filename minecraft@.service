@@ -61,6 +61,7 @@ ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "say SERVER SHUTTING DOWN.
 ExecStop=/bin/sleep 5
 ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "save-all"\\015'
 ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "stop"\\015'
+ExecStop=/bin/sleep 10
 
 Restart=on-failure
 RestartSec=60s
