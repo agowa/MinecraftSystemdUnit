@@ -47,7 +47,7 @@ systemctl stop minecraft@FTBBeyond
 ```
 ### Enter Server Commands
 To enter the console "screen" is used (that's why it is in the script).
-**Note**: To detach (exit) screen press [STRG] + [A] followed by [D].
+**Note**: To detach (exit) screen press [CTRL] + [A] followed by [D].
 ```
 su - minecraft -c "/usr/bin/screen -r" minecraft
 ```
