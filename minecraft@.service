@@ -30,7 +30,7 @@ ProtectControlGroups=true
 # Implies MountAPIVFS=yes
 
 # Set default memory values
-Environment="MCMINMEM=512M" "MCMAXMEM=1024M"
+Environment="MCMINMEM=512M" "MCMAXMEM=1024M" "SHUTDOWN_DELAY=5" "POST_SHUTDOWN_DELAY=10"
 # Change memory values in environment file
 EnvironmentFile=-/opt/minecraft/%i/server.conf
 
@@ -61,10 +61,10 @@ ExecStart=/bin/sh -c \
 ExecReload=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "reload"\\015'
 
 ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "say SERVER SHUTTING DOWN. Saving map..."\\015'
-ExecStop=/bin/sleep 5
+ExecStop=/bin/sh -c '/bin/sleep ${SHUTDOWN_DELAY}'
 ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "save-all"\\015'
 ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "stop"\\015'
-ExecStop=/bin/sleep 10
+ExecStop=/bin/sh -c '/bin/sleep ${POST_SHUTDOWN_DELAY}'
 
 Restart=on-failure
 RestartSec=60s
