@@ -34,6 +34,9 @@ Environment="MCMINMEM=512M" "MCMAXMEM=1024M"
 # Change memory values in environment file
 EnvironmentFile=-/opt/minecraft/%i/server.conf
 
+# Uncomment this to fix screen on RHEL 8
+#ExecStartPre=+/bin/sh -c 'chmod 777 /run/screen'
+
 ExecStart=/bin/sh -c \
     'find -L . \
       -maxdepth 1 \
