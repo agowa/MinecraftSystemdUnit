@@ -34,6 +34,13 @@ Environment="MCMINMEM=512M" "MCMAXMEM=1024M" "SHUTDOWN_DELAY=5" "POST_SHUTDOWN_D
 # Change memory values in environment file
 EnvironmentFile=-/opt/minecraft/%i/server.conf
 
+# Uncomment this to not send any termination signals. 
+# Unrecommended but enable if you absolutely NEED your world saved.
+# KillMode=none
+
+# Uncomment this to disable SIGKILL signals.
+# SendSIGKILL=no
+
 # Uncomment this to fix screen on RHEL 8
 #ExecStartPre=+/bin/sh -c 'chmod 777 /run/screen'
 
@@ -56,7 +63,7 @@ ExecStart=/bin/sh -c \
           -XX:MinHeapFreeRatio=5 \
           -XX:MaxHeapFreeRatio=10 \
           -jar {} \
-          nogui'
+          nogui; exit'
 
 ExecReload=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "reload"\\015'
 
