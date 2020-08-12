@@ -66,7 +66,7 @@ Some Feed the Beast packs include a `FTBInstall.sh`. This script needs to be exe
 
 ```bash
 cd /opt/minecraft/ftb-beyond
-su -c 'bash /opt/minecraft/FTBBeyond/FTBInstall.sh' minecraft
+su -c 'bash /opt/minecraft/ftb-beyond/FTBInstall.sh' minecraft
 ```
 
 ## Usage
@@ -74,25 +74,25 @@ su -c 'bash /opt/minecraft/FTBBeyond/FTBInstall.sh' minecraft
 ### Enable auto-start Minecraft server on boot
 
 ```bash
-systemctl enable minecraft@FTBBeyond
+systemctl enable minecraft@ftb-beyond
 ```
 
 ### Disable auto-start Minecraft server on boot
 
 ```bash
-systemctl disable minecraft@FTBBeyond
+systemctl disable minecraft@ftb-beyond
 ```
 
 ### Start Minecraft server manually
 
 ```bash
-systemctl start minecraft@FTBBeyond
+systemctl start minecraft@ftb-beyond
 ```
 
 ### Stop Minecraft server manually
 
 ```bash
-systemctl stop minecraft@FTBBeyond
+systemctl stop minecraft@ftb-beyond
 ```
 
 ### Connecting to the Minecraft server console
@@ -102,8 +102,8 @@ To enter the console, [`screen`](https://linux.die.net/man/1/screen) is used.
 All screen sessions are owned by the `minecraft` user and are prefixed with `mc-`.
 
 ```bash
-# This will attach to the Minecraft server called `FTBBeyond`
-su -c 'screen -r mc-FTBBeyond' minecraft
+# This will attach to the Minecraft server called `ftb-beyond`
+su -c 'screen -r mc-ftb-beyond' minecraft
 ```
 
 **Note**: To detach (exit) from the session, press <kbd>CTRL + A</kbd> followed by <kbd>D</kbd>.
