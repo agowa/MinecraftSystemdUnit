@@ -51,7 +51,6 @@ ExecStart=/bin/sh -c \
           -Xms${MCMINMEM} \
           -Xmx${MCMAXMEM} \
           -XX:+UseG1GC \
-          -XX:+CMSClassUnloadingEnabled \
           -XX:ParallelGCThreads=2 \
           -XX:MinHeapFreeRatio=5 \
           -XX:MaxHeapFreeRatio=10 \
