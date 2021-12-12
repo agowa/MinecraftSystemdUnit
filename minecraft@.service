@@ -54,6 +54,7 @@ ExecStart=/bin/sh -c \
           -XX:ParallelGCThreads=2 \
           -XX:MinHeapFreeRatio=5 \
           -XX:MaxHeapFreeRatio=10 \
+          -Dlog4j2.formatMsgNoLookups=True \
           -jar {} \
           nogui'
 
